@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './styles/Reports.css';
 import Navbar from "./Navbar";
+
 const Reports = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -100,42 +101,41 @@ const Reports = () => {
   return (
     <div>
       <Navbar/>
-      <div className="d-flex align-items-center cart">
-                <input
-                  className="form-control me-2"
-                  type="search"
-                  placeholder="Search by location or email"
-                  aria-label="Search"
-                  value={input}
-                  onChange={handleInputChange}
-                  onFocus={() => setSearchFocused(true)}
-                  onBlur={() => setSearchFocused(false)}
-                />
 
-                {showSearchResults && (
-                  <ul className="list-group">
-                    {searchResults.length > 0 ? (
-                      searchResults.map((result) => (
-                        <li
-                          key={result.id}
-                          className="list-group-item"
-                          onClick={() => handleSelect(result)}
-                        >
-                          <span>{result.email}</span>
-                        </li>
-                      ))
-                    ) : (
-                      noResults && (
-                        <p className="no-results-message">
-                          No Product with such Name
-                        </p>
-                      )
-                    )}
-                  </ul>
-                )}
-          </div>
       <div className="reports-container">
         <h1>Violation Reports</h1>
+        <div className="search-container">
+        <input
+            className="search-input"
+            type="search"
+            placeholder="Search by location or email"
+            aria-label="Search"
+            value={input}
+            onChange={handleInputChange}
+            onFocus={() => setSearchFocused(true)}
+            onBlur={() => setSearchFocused(false)}
+          />
+          {showSearchResults && (
+            <div className="search-results">
+              {searchResults.length > 0 ? (
+                searchResults.map((result) => (
+                  <div
+                    key={result.id}
+                    className="search-result-item"
+                    onClick={() => handleSelect(result)}
+                  >
+                    {result.email}
+                  </div>
+                ))
+              ) : (
+                noResults && <div className="no-results">No Product with such Name</div>
+              )}
+            </div>
+          )}
+          </div>
+
+          <br>
+          </br>
         <div className="reports-grid">
           {reports.length > 0 ? (
             reports.map((report) => (
